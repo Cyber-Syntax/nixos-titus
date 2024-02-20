@@ -7,49 +7,35 @@
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
-
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+ boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3085b41d-513d-4ce9-b772-2dcea985f376";
+    { device = "/dev/disk/by-uuid/047f6677-3bdb-44cc-9d24-a38107f3d4e4"; # sda2
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1D53-E6DA";
+    { device = "/dev/disk/by-uuid/E5A6-23AE"; # sda4
       fsType = "vfat";
     };
-fileSystems."/home" = {
-	device = "/dev/disk/by-uuid/129cd488-5ae5-464c-a2d0-9f599bd42f44";
+  fileSystems."/home" = {
+	device = "/dev/disk/by-uuid/62d231df-7756-494b-b71c-909280fd1627"; # sda3
 	fsType = "ext4";
   };
+  fileSystems."/media/backups" = {
+    device = "/dev/disk/by-uuid/4c491a88-7501-4b9c-acce-802cfa7b8e1b"; # sda1
+    fsType = "btrfs";
+    options = [ "x-systemd.automount" "noauto" "x-systemd.mount-timeout=90" ];
+};
 
-fileSystems."/media/images" = {
-    device = "10.0.0.200:/volume2/Images";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
-  };
-fileSystems."/media/mainpool" = {
-    device = "10.0.0.200:/volume2/MainPool";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
-  };
-fileSystems."/media/drive" = {
-    device = "10.0.0.200:/volume2/homes/titus/Drive";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
-  };
-fileSystems."/media/fcp" = {
-    device = "10.0.0.200:/volume2/FCP";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
-  };
-
-
-  swapDevices = [ ];
+  swapDevices = [ 
+  { device = "/dev/disk/by-uuid/cc45ddcf-6ad8-4152-a941-cd996045c1db"; # sda6
+    size = 0;
+  }
+    
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

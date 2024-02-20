@@ -14,7 +14,7 @@
     ...
   }: 
     let
-      user = "titus";
+      user = "cyber-syntax";
     in {
     nixosConfigurations.nixos-studio = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

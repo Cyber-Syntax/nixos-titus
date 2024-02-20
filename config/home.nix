@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  username = "titus";
+  username = "cyber-syntax";
 in {
   imports = [
     ./packages
@@ -23,74 +23,50 @@ in {
     packages = with pkgs; [
       vim
       wget
-      w3m
-      dmenu
       neofetch
       neovim
-      starship
-      bat
-      bazecor
-      cargo
-      celluloid
-      chatterino2
-      clang-tools_9
+      #clang-tools_9
       dunst
       efibootmgr
-      elinks
-      eww
+      #eww
       feh
       flameshot
       flatpak
-      floorp
+      firefox
       fontconfig
       freetype
       fuse-common
       gcc
       gimp
       git
-      github-desktop
       gnome.gnome-keyring
-      gnugrep
       gnumake
       gparted
       gnugrep
       grub2
-      hugo
       kitty
       libverto
       luarocks
       lxappearance
-      mangohud
-      neovim
       nfs-utils
       ninja
-      nodejs
-      nomacs
       openssl
       os-prober
       nerdfonts
       pavucontrol
       picom
       polkit_gnome
-      powershell
-      protonup-ng
       python3Full
       python.pkgs.pip
       qemu
-      ripgrep
+      #ripgrep # ripgrep = 
       rofi
-      steam
-      steam-run
-      sxhkd
-      st
-      stdenv
-      synergy
-      swaycons
+      sxhkd # simple x hotkey daemon e
+      #swaycons
       terminus-nerdfont
-      tldr
-      trash-cli
+      tldr # man page driven from community
+      trash-cli # for easy file deletion
       unzip
-      variety
       virt-manager
       xclip
       xdg-desktop-portal-gtk
@@ -102,14 +78,7 @@ in {
       xorg.libXinerama
       xorg.xinit
       xorg.xinput
-      zoxide
-      (lutris.override {
-        extraPkgs = pkgs: [
-          # List package dependencies here
-          wineWowPackages.stable
-          winetricks
-        ];
-      })
+      zoxide # for easy directory navigation
     ];
   };
 }

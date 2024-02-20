@@ -11,20 +11,12 @@
       warn-dirty = false;
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
-      substituters = ["https://nix-gaming.cachix.org"];
-      trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
     };
   };
 
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"];
-
-      permittedInsecurePackages = [
-          "openssl-1.1.1v"
-          "python-2.7.18.7"
-      ];
     };
   };
 
@@ -59,18 +51,19 @@
   };
 
   networking = {
-    hostName = "nixos-studio";
+    hostName = "nixos";
     networkmanager.enable = true;
     enableIPv6 = false;
     firewall.enable = false;
   };
 
-  time.timeZone = "America/Chicago";
+  time.timeZone = "Europe/Istanbul";
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     packages = [pkgs.terminus_font];
     font = "${pkgs.terminus_font}/share/consolefonts/ter-i22b.psf.gz";
+    keyMap = "trq";
     useXkbConfig = true;
   };
 
@@ -81,17 +74,20 @@
 
     xserver = {
       enable = true;
-      windowManager.dwm.enable = true;
-      layout = "us";
+      #windowManager.dwm.enable = true;
+      windowManager.qtile.enable = true;
+      layout = "tr";
 
       displayManager = {
         lightdm.enable = true;
         setupCommands = ''
-          ${pkgs.xorg.xrandr}/bin/xrandr --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal
+          ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --primary --rate 143.97 --mode 2560x1440 --rotate normal \
+       --output HDMI-0 --rate 59.79 --mode 1366x768 --rotate normal --right-of DP-2 \
+       --output DP-0 --mode 1920x1080 --pos 0x0 --rate 60 --rotate normal --left-of DP-2 \
         '';
         autoLogin = {
           enable = true;
-          user = "titus";
+          user = "cyber-syntax";
         };
       };
     };
@@ -99,13 +95,15 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      dwm = prev.dwm.overrideAttrs (old: {src = /home/${user}/CTT-Nix/system/dwm-titus;}); #FIX ME: Update with path to your dwm folder
+     #dwm = prev.dwm.overrideAttrs (old: {src = /home/${user}/CTT-Nix/system/dwm-titus;}); #FIX ME: Update with path to your dwm folder
+     qtile = prev.qtile.overrideAttrs (old: {src = /home/${user}/cyber-nix/system/qtile;});
+
     })
   ];
 
   users.users.titus = {
     isNormalUser = true;
-    description = "Titus";
+    description = "cyber-syntax";
     extraGroups = [
       "flatpak"
       "disk"
@@ -122,11 +120,7 @@
     ];
   };
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
+
 
   fonts = {
     packages = with pkgs; [
