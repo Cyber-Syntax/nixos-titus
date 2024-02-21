@@ -21,6 +21,19 @@ in {
     stateVersion = "23.11";
 
     packages = with pkgs; [
+      keepassxc
+      playerctl
+      gammastep
+      telegram-desktop
+      freetube
+      nuclear
+      backintime
+      ungoogled-chromium
+      tutanota-desktop
+      xournalpp
+      calibre
+      #gnome.seahorse # if nixos didn't install via gnome.keyring.enabled... setting.
+      syncthing
       vim
       wget
       neofetch
@@ -30,6 +43,7 @@ in {
       efibootmgr
       #eww
       feh
+      #swaybg # if you use wayland, wallpaper setter - also dependencie for my script
       flameshot
       flatpak
       firefox

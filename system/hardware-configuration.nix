@@ -31,11 +31,11 @@
     options = [ "x-systemd.automount" "noauto" "x-systemd.mount-timeout=90" ];
 };
 
-  swapDevices = [ 
-  { device = "/dev/disk/by-uuid/cc45ddcf-6ad8-4152-a941-cd996045c1db"; # sda6
-    size = 0;
-  }
-    
+  # swapDevices = [ 
+  # { device = "/dev/disk/by-uuid/cc45ddcf-6ad8-4152-a941-cd996045c1db"; # sda6
+  #   size = 0;
+  # }
+  #   
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

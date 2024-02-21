@@ -38,20 +38,24 @@
       };
       timeout = 300;
     };
-
+    # @tcp_bbr is a kernel module that provides a new congestion control algorithm
     kernelModules = ["tcp_bbr"];
-    kernel.sysctl = {
+    kernel.sysctl = { 
+      # Enable BBR
       "net.ipv4.tcp_congestion_control" = "bbr";
+      # fq is the default queue discipline
       "net.core.default_qdisc" = "fq";
-      "net.core.wmem_max" = 1073741824;
-      "net.core.rmem_max" = 1073741824;
-      "net.ipv4.tcp_rmem" = "4096 87380 1073741824";
-      "net.ipv4.tcp_wmem" = "4096 87380 1073741824";
+      # Increase the maximum number of memory pages that can be locked into memory
+      "net.core.wmem_max" = 1073741824; # 1GB
+      "net.core.rmem_max" = 1073741824; # 1GB
+      # Increase the default and maximum sizes of the receive and send buffers
+      "net.ipv4.tcp_rmem" = "4096 87380 1073741824"; # 4KB min, 87KB default, 1GB max
+      "net.ipv4.tcp_wmem" = "4096 87380 1073741824"; # 4KB min, 87KB default, 1GB max
     };
   };
 
   networking = {
-    hostName = "nixos";
+    hostName = "nixos-studio";
     networkmanager.enable = true;
     enableIPv6 = false;
     firewall.enable = false;
@@ -63,7 +67,7 @@
   console = {
     packages = [pkgs.terminus_font];
     font = "${pkgs.terminus_font}/share/consolefonts/ter-i22b.psf.gz";
-    keyMap = "trq";
+    keyMap = "trq"; # or tr 
     useXkbConfig = true;
   };
 
@@ -96,12 +100,12 @@
   nixpkgs.overlays = [
     (final: prev: {
      #dwm = prev.dwm.overrideAttrs (old: {src = /home/${user}/CTT-Nix/system/dwm-titus;}); #FIX ME: Update with path to your dwm folder
-     qtile = prev.qtile.overrideAttrs (old: {src = /home/${user}/cyber-nix/system/qtile;});
-
+     qtile = prev.qtile.overrideAttrs (old: {src = /home/${user}/qtile;});
+     #Path to the qtile configuration file. If null, $XDG_CONFIG_HOME/qtile/config.py will be used.
     })
   ];
 
-  users.users.titus = {
+  users.users.cyber-syntax = {
     isNormalUser = true;
     description = "cyber-syntax";
     extraGroups = [
@@ -119,8 +123,6 @@
       "root"
     ];
   };
-
-
 
   fonts = {
     packages = with pkgs; [
