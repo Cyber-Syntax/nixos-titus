@@ -22,7 +22,7 @@
       fsType = "vfat";
     };
   fileSystems."/home" = {
-	device = "/dev/disk/by-uuid/6e1e7639-3783-4b80-92c2-d2ac3eac81a2"; # sda3
+	device = "/dev/disk/by-uuid/ce6fb9ee-d258-47ff-801e-a851742cf2d0" # sda3
 	fsType = "ext4";
   };
   fileSystems."/media/backups" = {
