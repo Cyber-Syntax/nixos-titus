@@ -13,7 +13,7 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/047f6677-3bdb-44cc-9d24-a38107f3d4e4"; # sda2
+    { device = "/dev/disk/by-uuid/5e503921-a17a-4a92-b453-731bc879ddc8"; # sda2
       fsType = "ext4";
     };
 
@@ -22,7 +22,7 @@
       fsType = "vfat";
     };
   fileSystems."/home" = {
-	device = "/dev/disk/by-uuid/62d231df-7756-494b-b71c-909280fd1627"; # sda3
+	device = "/dev/disk/by-uuid/6e1e7639-3783-4b80-92c2-d2ac3eac81a2"; # sda3
 	fsType = "ext4";
   };
   fileSystems."/media/backups" = {
