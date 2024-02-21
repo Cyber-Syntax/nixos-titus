@@ -72,7 +72,7 @@
   };
 
   services = {
-    flatpak.enable = true;
+    #flatpak.enable = true;
     dbus.enable = true;
     picom.enable = true;
 
@@ -108,8 +108,8 @@
   users.users.cyber-syntax = {
     isNormalUser = true;
     description = "cyber-syntax";
-    extraGroups = [
-      "flatpak"
+     extraGroups = [
+    # "flatpak"
       "disk"
       "qemu"
       "kvm"
@@ -150,12 +150,12 @@
   ];
 
   virtualisation.libvirtd.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
+  
+  # xdg.portal = {
+  #   enable = true;
+  #   config.common.default = "*";
+  #   extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  # };
 
   security.polkit.enable = true;
 

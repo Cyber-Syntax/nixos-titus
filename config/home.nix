@@ -45,7 +45,7 @@ in {
       feh
       #swaybg # if you use wayland, wallpaper setter - also dependencie for my script
       flameshot
-      flatpak
+      #flatpak
       firefox
       fontconfig
       freetype
